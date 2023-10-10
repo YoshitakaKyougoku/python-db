@@ -3,7 +3,7 @@ services:
   app:
     build: ./infra/python
     volumes:
-      - ./bottle-book:/data
+      - ./app:/data
     ports:
       - 8888:8888
     tty: true
