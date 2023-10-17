@@ -92,5 +92,37 @@ def add():
             replace('<!--email-->', form['email']).\
             replace('<!--user_shi-->', form['user_shi']).\
             replace('<!--user_mei-->', form['user_mei'])
+
+@app.route('/regist', method=["POST"])
+def regist():
+    
+    if request.forms.get('next')== 'back': #確認画面から戻るボタンを押す
+        #登録フォームに戻る
+        response.status = 307
+        response.set_header("Location", '/add')
+        return response
+    else:
+        #フォームから値を取得する
+        user_id = request.forms.decode().get('user_id')
+        passwd = request.forms.decode().get('passwd')
+        email = request.forms.decode().get('email')
+        user_shi = request.forms.decode().get('user_shi')
+        user_mei = request.forms.decode().get('user_mei')
+        #sqlを記入する
+        sql = """
+        insert into book_user \
+        (user_id, passwd, email, user_shi, user_mei, del)\
+        values \
+        (%(user_id)s, %(passwd)s, %(email)s, %(user_shi)s, %(user_mei)s, false);
+        """
+        #入力する値の辞書を設定する
+        val = {'user_id':user_id, 'passwd':passwd, \
+               'email': email, 'user_shi':user_shi,\
+               'user_mei': user_mei}
+        with get_connection() as con: 
+            with con.cursor() as cur:
+                cur.execute(sql, val)
+            con.commit()
+        redirect('/add')
 if __name__ == '__main__':
     run(app=app, host='0.0.0.0', port = '8888', reloader = True, debug = True)
