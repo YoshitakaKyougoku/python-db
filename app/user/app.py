@@ -9,7 +9,7 @@ from bottle import Bottle,\
 from bottle import request, run
 import psycopg2
 import psycopg2.extras
-
+import config
 #Bottleアプリ利用
 app = Bottle()
 @app.route('/', method=['GET', 'POST'])
