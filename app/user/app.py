@@ -124,5 +124,20 @@ def regist():
                 cur.execute(sql, val)
             con.commit()
         redirect('/add')
+@app.route('/list') 
+def list(): 
+    sql= """select user_id, email, user_shi,\
+    user_mei from book_user \
+    where del =
+    false\
+    order by user_id asc;"""
+    with get_connection() as con:
+        with con.cursor(cursor_factory=psycopg2.extras.DictCursor) as cur: #dict型で受け取りたいので上記の様にオプション指定
+            cur.execute(sql)
+            rows = cur.fetchall()
+            #下記の内包表記を挟む必要がある
+            rows = [dict(row) for row in rows] 
+    return template('list.html', rows=rows)
+
 if __name__ == '__main__':
     run(app=app, host='0.0.0.0', port = '8888', reloader = True, debug = True)
