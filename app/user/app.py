@@ -3,14 +3,13 @@
 '''
 
 from bottle import Bottle,\
-    jinja2_template as temprate,\
+    jinja2_template as template,\
         static_file, request, redirect
         
 from bottle import request, run
 import psycopg2
 import psycopg2.extras
 import config
-
 #DB connection
 def get_connection():
     dsn = 'host={host} port={port} dbname={dbname} \
