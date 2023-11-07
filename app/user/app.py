@@ -98,7 +98,7 @@ def regist():
     if request.forms.get('next')== 'back': #確認画面から戻るボタンを押す
         #登録フォームに戻る
         response.status = 307
-        response.set_header("Location", '/add')
+        response.set_header("Location", '/useradd')
         return response
     else:
         #フォームから値を取得する
@@ -139,4 +139,4 @@ def list():
     return template('list.html', rows=rows)
 
 if __name__ == '__main__':
-    run(app=app, host='0.0.0.0', port = '8888', reloader = True, debug = True)
+    run(app=app, host='0.0.0.0', port = '8889', reloader = True, debug = True)

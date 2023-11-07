@@ -19,7 +19,7 @@ def list():
     #認証確認
     auth.check_login()
     bookList = connection.query (Books.name,
-    Books. volume, Books. author, Books.publisher, Books.memo, Books.id_)\
-    .filter(Books.delF1g== False).all()
-    headers = ['書名', '卷数', '著者', '出版社', 'メモ', '操作']
+    Books. volume, Books. author, Books.publisher, Books.memo, Books.id)\
+    .filter(Books.delFlg== False).all()
+    headers = ['書名', '巻数', '著者', '出版社', 'メモ', '操作']
     return template('list.html', bookList=bookList, headers=headers)
